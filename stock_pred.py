@@ -100,7 +100,7 @@ y_linear_pred = linear_reg.predict(X_test)
 # Plot what it looks like for the training data
 df_linear = df.copy()
 df_linear.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_linear = df_linear.iloc[window_size:ind_split] # Past 32 days we don't know yet
+df_linear = df_linear.iloc[window_size:ind_split] # Past 45 days we don't know yet
 df_linear['Adj Close Train'] = y_linear_pred_train[:-window_size]
 df_linear.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
@@ -113,7 +113,7 @@ df_linear.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', gri
 # Same for the test
 df_linear = df.copy()
 df_linear.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_linear = df_linear.iloc[ind_split+window_size:] # Past 32 days we don't know yet
+df_linear = df_linear.iloc[ind_split+window_size:] # Past 45 days we don't know yet
 df_linear['Adj Close Test'] = y_linear_pred
 df_linear.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
@@ -141,7 +141,7 @@ y_pred_lasso = lasso.predict(X_test)
 # Plot what it looks like for the training data
 df_lasso = df.copy()
 df_lasso.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_lasso = df_lasso.iloc[window_size:ind_split] # Past 32 days we don't know yet
+df_lasso = df_lasso.iloc[window_size:ind_split] # Past 45 days we don't know yet
 df_lasso['Adj Close Train'] = y_pred_train_lasso[:-window_size]
 df_lasso.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
@@ -154,7 +154,7 @@ df_lasso.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid
 # Plot what it looks like for the training data
 df_lasso = df.copy()
 df_lasso.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_lasso = df_lasso.iloc[ind_split+window_size:] # Past 32 days we don't know yet
+df_lasso = df_lasso.iloc[ind_split+window_size:] # Past 45 days we don't know yet
 df_lasso['Adj Close Train'] = y_pred_lasso
 df_lasso.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
@@ -196,7 +196,7 @@ df_model.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid
 # Plot what it looks like for the training data
 df_model = df.copy()
 df_model.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_model = df_model.iloc[ind_split+window_size:] # Past 32 days we don't know yet
+df_model = df_model.iloc[ind_split+window_size:] # Past 45 days we don't know yet
 df_model['Adj Close Train'] = y_pred_model
 df_model.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
@@ -208,7 +208,7 @@ df_model.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid
 
 df_train = df.copy()
 df_train.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_train = df_train.iloc[window_size:ind_split] # Past 32 days we don't know yet
+df_train = df_train.iloc[window_size:ind_split] # Past 45 days we don't know yet
 # Add in all of our methods
 df_train['Adj Close Train Lasso'] = y_pred_train_lasso[:-window_size]
 df_train['Adj Close Train Linear'] = y_linear_pred_train[:-window_size]
@@ -222,7 +222,7 @@ df_train.plot(label='AMAT', figsize=(16,8), title='Adjusted Closing Price', grid
 
 df_test = df.copy()
 df_test.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
-df_test = df_test.iloc[ind_split+window_size:] # Past 32 days we don't know yet
+df_test = df_test.iloc[ind_split+window_size:] # Past 45 days we don't know yet
 # Add in all of our methods
 df_test['Adj Close Test Lasso'] = y_pred_lasso
 df_test['Adj Close Test Linear'] = y_linear_pred
@@ -236,7 +236,7 @@ df_test.plot(label='AMAT', figsize=(16,8), title='Adjusted Closing Price', grid=
 
 num_days = 45 # Let's try and forecase the next 45 days or two years
 
-# Get the last window_size (32) days
+# Get the last window_size (45) days
 data_seed = df['Adj Close'].values[-window_size:][None]
 
 input_values = {"lasso": data_seed, "linear": data_seed, "poly": data_seed}
