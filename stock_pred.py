@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[33]:
 
 
 # Import necessary packages
@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 get_ipython().run_line_magic('matplotlib', 'inline')
 
 import sklearn
+from sklearn import linear_model
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Lasso
 
@@ -23,7 +24,7 @@ from sklearn.pipeline import Pipeline
 # In[3]:
 
 
-df = pd.read_csv(r'C:\Users\ssamymuthu\Downloads\AAPL.csv')
+df = pd.read_csv(r'C:\Users\ssamymuthux063973\Downloads\AAPL.csv')
 
 
 # In[4]:
@@ -161,7 +162,7 @@ df_lasso.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid
 
 # # Polynomial regression - Linear model Ridge
 
-# In[32]:
+# In[82]:
 
 
 #Load the Model
@@ -175,9 +176,16 @@ y_pred_train_model = model.predict(X_train)
 y_pred_model = model.predict(X_test)
 
 
+# In[94]:
+
+
+poly_trained_data = pd.DataFrame({'Actual': y_train, 'Predicted': y_pred_train_model})
+poly_trained_data.head(10)
+
+
 # # Polynomial - Train data
 
-# In[20]:
+# In[83]:
 
 
 # Plot what it looks like for the training data
@@ -188,9 +196,16 @@ df_model['Adj Close Train'] = y_pred_train_model[:-window_size]
 df_model.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
 
+# In[96]:
+
+
+poly_test_data = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred_model})
+poly_test_data.head(10)
+
+
 # # Polynomial - Test data
 
-# In[21]:
+# In[84]:
 
 
 # Plot what it looks like for the training data
@@ -203,7 +218,7 @@ df_model.plot(label='AAPL', figsize=(16,8), title='Adjusted Closing Price', grid
 
 # # Train Data of the Three model
 
-# In[22]:
+# In[67]:
 
 
 df_train = df.copy()
@@ -217,7 +232,7 @@ df_train['Adj Close Train Polynomial'] = y_pred_train_model[:-window_size]
 df_train.plot(label='AMAT', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
 
-# In[23]:
+# In[68]:
 
 
 df_test = df.copy()
@@ -231,7 +246,7 @@ df_test['Adj Close Test Polynomial'] = y_pred_model
 df_test.plot(label='AMAT', figsize=(16,8), title='Adjusted Closing Price', grid=True)
 
 
-# In[24]:
+# In[69]:
 
 
 num_days = 45 # Let's try and forecase the next 45 days or two years
@@ -259,7 +274,7 @@ for v in input_values:
     
 
 
-# In[28]:
+# In[70]:
 
 
 from datetime import timedelta, datetime
@@ -270,4 +285,40 @@ df_forecast["Linear"] = values["linear"]
 df_forecast["Polynomial Ridge"] = values["poly"]
 df_forecast.index = pd.date_range(start=last_date, periods=num_days)
 df_forecast.plot(label='AAPL', figsize=(16,8), title='Forecasted Adjusted Closing Price', grid=True)
+
+
+# In[106]:
+
+
+df.describe()
+
+
+# # Poly error calculation
+
+# In[100]:
+
+
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred_model))  
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred_model))  
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred_model)))
+
+
+# #  Linear error calculation
+
+# In[101]:
+
+
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_linear_pred))  
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_linear_pred))  
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_linear_pred)))
+
+
+# # Lasso Error calculation
+
+# In[102]:
+
+
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred_lasso))  
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred_lasso))  
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred_lasso)))
 
