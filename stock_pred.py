@@ -24,7 +24,7 @@ from sklearn.pipeline import Pipeline
 # In[3]:
 
 
-df = pd.read_csv(r'C:\Users\ssamymuthux063973\Downloads\AAPL.csv')
+df = pd.read_csv(r'C:\Users\ssamymuthu\Downloads\AAPL.csv')
 
 
 # In[4]:
