@@ -23,7 +23,7 @@ from sklearn.pipeline import Pipeline
 
 # In[3]:
 
-
+# change the below based on the file location
 df = pd.read_csv(r'C:\Users\ssamymuthu\Downloads\AAPL.csv')
 
 
